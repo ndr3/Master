@@ -38,6 +38,7 @@ public class LoginBean {
 		}
 		return "secure/dashboard.xhtml?faces-redirect=true";
 	}
+	int x;
 
 	public String home() {
 		return "dashboard.xhtml?faces-redirect=true";
