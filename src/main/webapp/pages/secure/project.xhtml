@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<script name="jquery/jquery.js" library="primefaces"></script>
+	<title>#{project.name}</title>
+</h:head>
+
+<h:body>
+	<h:form id="form">
+
+		<p:dataTable id="projectsTable" var="project"
+			value="#{dashboardView.projects}" rows="10" paginator="true"
+			editable="true"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15">>
+			<f:facet name="header">
+            #{msg['dashboard.projects']}
+        </f:facet>
+			<p:ajax event="rowEdit" listener="#{dashboardView.onRowEdit}" />
+			<p:column headerText="#{msg['dashboard.table.name']}">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{project.name}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:inputText value="#{project.name}" style="width:100%" />
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+			<p:column style="width:80px;text-align: center">
+				<h:button value="Details" outcome="activity">
+					<f:param name="projectId" value="#{project.id}" />
+				</h:button>
+
+			</p:column>
+			<p:column style="width:32px">
+				<p:rowEditor />
+			</p:column>
+		</p:dataTable>
+	</h:form>
+</h:body>
+
+</html>

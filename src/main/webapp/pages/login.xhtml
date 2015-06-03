@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<script type="text/javascript">
+		function handleLoginRequest(xhr, status, args) {
+			if (args.validationFailed || !args.created) {
+				jQuery('#dialog').effect("shake", {
+					times : 3
+				}, 100);
+			} else {
+				account.hide();
+			}
+		}
+	</script>
+</h:head>
+
+<p:layout fullPage="true" style="min-width:420px;min-height:650px;"
+	id="layout">
+	<p:layoutUnit position="center">
+		<h:form>
+			<!-- 		login section -->
+			<p:panel id="pnl" header="#{msg['login.header']}"
+				style="margin-top:0%;margin-left:29%;display:block; text-align:center;width:500px;">
+				<p:messages for="msgLogin" />
+				<h:panelGrid columns="3">
+					<h:outputLabel for="userName" value="#{msg['login.username']}" />
+					<p:inputText id="userName" value="#{loginMgmtBean.userName}"
+						required="true" label="Username"
+						requiredMessage="#{msg['login.username.requiered']}">
+					</p:inputText>
+					<p:message for="userName" />
+
+					<h:outputLabel for="password" value="#{msg['login.password']}" />
+					<p:password id="password" value="#{loginMgmtBean.password}"
+						required="true" label="password"
+						requiredMessage="#{msg['login.password.requiered']}" />
+					<p:message for="password" />
+				</h:panelGrid>
+
+				<p:commandButton id="saveBtn" value="#{msg['login.login']}"
+					update="pnl" style="margin:0" action="#{loginMgmtBean.login}"
+					title="#{msg['login.login']}" />
+				<p:commandButton id="signUpBt" value="#{msg['login.signUp']}"
+					onclick="PF('account').show();" type="button" />
+			</p:panel>
+		</h:form>
+	</p:layoutUnit>
+</p:layout>
+
+<!-- create a new account -->
+<p:dialog id="dialog" header="#{msg['login.header.create.account']}"
+	widgetVar="account" modal="true" showEffect="drop" hideEffect="drop"
+	height="370">
+	<h:form>
+		<h:panelGrid columns="3" id="newAccount">
+			<f:facet name="header">
+				<p:messages for="createAccountErr" />
+			</f:facet>
+			<h:outputLabel for="firstName" value="#{msg['login.new.first.name']}" />
+			<p:inputText id="firstName" value="#{newAccount.firstName}"
+				required="true" label="firstName"
+				requiredMessage="#{msg['login.new.first.name.requiered']}"
+				validatorMessage="#{msg['login.new.first.name.short']}">
+				<f:validateLength minimum="3" />
+			</p:inputText>
+			<p:message for="firstName" autoUpdate="true" />
+			<h:outputLabel for="lastName" value="#{msg['login.new.last.name']}" />
+			<p:inputText id="lastName" value="#{newAccount.lastName}"
+				required="true" label="lastName"
+				requiredMessage="#{msg['login.new.last.name.requiered']}"
+				validatorMessage="#{msg['login.new.last.name.short']}">
+				<f:validateLength minimum="3" />
+			</p:inputText>
+			<p:message for="lastName" autoUpdate="true" />
+			<h:outputLabel for="company" value="#{msg['login.new.company']}" />
+			<p:inputText id="company" value="#{newAccount.company}"
+				required="true" label="company"
+				requiredMessage="#{msg['login.new.company.requiered']}">
+			</p:inputText>
+			<p:message for="company" autoUpdate="true" />
+			<h:outputLabel for="email" value="#{msg['login.new.email']}" />
+			<p:inputText id="email" value="#{newAccount.email}" required="true"
+				label="email" requiredMessage="#{msg['login.new.email.requiered']}"
+				validatorMessage="#{msg['login.new.email.invalid']}">
+				<f:validateRegex
+					pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+			</p:inputText>
+			<p:message for="email" autoUpdate="true" />
+			<h:outputLabel for="password" value="#{msg['login.new.password']}" />
+			<p:password id="password" value="#{newAccount.password}"
+				match="passwordRe" label="password" required="true"
+				promptLabel="#{msg['login.new.password.feedback.label']}"
+				weakLabel="#{msg['login.new.password.feedback.weak']}"
+				goodLabel="#{msg['login.new.password.feedback.good']}"
+				strongLabel="#{msg['login.new.password.feedback.strong']}"
+				feedback="true" inline="true"
+				requiredMessage="#{msg['login.new.password.requiered']}"
+				validatorMessage="#{msg['login.new.password.match']}" />
+			<p:message for="password" />
+
+			<h:outputLabel for="passwordRe"
+				value="#{msg['login.new.password.re']}" />
+			<p:password id="passwordRe" value="#{newAccount.password}"
+				label="passwordRe" required="true"
+				requiredMessage="#{msg['login.new.password.requiered']}" />
+			<p:message for="passwordRe" />
+			<f:facet name="footer">
+				<p:commandButton id="saveButton"
+					value="#{msg['login.new.create.account']}" update="newAccount"
+					actionListener="#{newAccount.save}"
+					oncomplete="handleLoginRequest(xhr, status, args)" />
+			</f:facet>
+		</h:panelGrid>
+
+	</h:form>
+</p:dialog>
+
+</html>

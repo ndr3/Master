@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<script name="jquery/jquery.js" library="primefaces"></script>
+	<title>#{msg['dashboard.title']}</title>
+</h:head>
+
+<h:body>
+	<h:form id="form">
+		<p:tabMenu activeIndex="-1">
+			<p:menuitem value="#{msg['dashboard.add']}"
+				onclick="PF('project').show();" icon="ui-icon-circle-plus">
+			</p:menuitem>
+		</p:tabMenu>
+		<p:growl id="msgs" showDetail="true" />
+
+		<p:dataTable id="projectsTable" var="project"
+			value="#{dashboardView.projects}" rows="10" paginator="true"
+			editable="true"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15">>
+			<f:facet name="header">
+            #{msg['dashboard.projects']}
+        </f:facet>
+			<p:ajax event="rowEdit" listener="#{dashboardView.onRowEdit}" />
+			<p:column headerText="#{msg['dashboard.table.name']}">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{project.name}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:inputText value="#{project.name}" style="width:100%" />
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+			<p:column style="width:80px;text-align: center">
+				<h:button value="Details" outcome="activity">
+					<f:param name="projectId" value="#{project.id}" />
+				</h:button>
+
+			</p:column>
+			<p:column style="width:32px">
+				<p:rowEditor />
+			</p:column>
+		</p:dataTable>
+	</h:form>
+
+	<!-- create new project -->
+	<p:dialog id="dialog" header="#{msg['project.create.header']}"
+		widgetVar="project" modal="true" showEffect="drop" hideEffect="drop"
+		height="100">
+		<h:form>
+			<h:panelGrid columns="3" id="newProject">
+				<f:facet name="header">
+					<p:messages for="createMsg" />
+				</f:facet>
+				<h:outputLabel for="name" value="#{msg['project.create.name']}" />
+				<p:inputText id="name" value="#{dashboardView.projectName}"
+					required="true" label="name"
+					requiredMessage="#{msg['project.create.name.required']}">
+				</p:inputText>
+				<p:message for="name" autoUpdate="true" />
+				<f:facet name="footer">
+					<p:commandButton id="saveButton"
+						value="#{msg['project.create.save']}" update="form"
+						actionListener="#{dashboardView.save}" />
+				</f:facet>
+			</h:panelGrid>
+
+		</h:form>
+	</p:dialog>
+	<ui:include src="/pages/secure/menu.xhtml" />
+</h:body>
+
+</html>
