@@ -28,6 +28,8 @@ public class ProjectView implements Serializable {
 	private static final long serialVersionUID = 5323066814321042662L;
 
 	private User user;
+	
+	private Long projectId;
 
 	private Project project;
 
@@ -63,8 +65,8 @@ public class ProjectView implements Serializable {
 		requestContext.execute("PF('project').hide()");
 	}
 	
-	public String dashboardView() {
-		return "dashboard.xhtml?faces-redirect=true";
+	public String projectView() {
+		return "project.xhtml?faces-redirect=true";
 	}
 
 	public void onRowEdit(RowEditEvent event) {
