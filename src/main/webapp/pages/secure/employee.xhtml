@@ -28,13 +28,23 @@
             #{msg['employee.employees']}
         </f:facet>
 			<p:ajax event="rowEdit" listener="#{employeeView.onRowEdit}" />
-			<p:column headerText="#{msg['employee.table.name']}">
+			<p:column headerText="Name">
 				<p:cellEditor>
 					<f:facet name="output">
 						<h:outputText value="#{employee.name}" />
 					</f:facet>
 					<f:facet name="input">
 						<p:inputText value="#{employee.name}" style="width:100%" />
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+			<p:column headerText="Job Classification">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{employee.jobClassification.name}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:inputText value="#{employee.jobClassification.name}" style="width:100%" />
 					</f:facet>
 				</p:cellEditor>
 			</p:column>
