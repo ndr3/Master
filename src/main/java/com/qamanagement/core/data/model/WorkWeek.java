@@ -30,6 +30,7 @@ public class WorkWeek implements Serializable {
 	private int number;
 
 	@Column(name = "total_number_of_resp")
+	private int totalNumberOfResp;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SELECT)
