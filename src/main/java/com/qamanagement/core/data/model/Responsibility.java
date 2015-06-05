@@ -18,6 +18,10 @@ public class Responsibility {
 	@Column(name = "name", nullable = false)
 	private String name;
 
+	public Responsibility(String name) {
+		this.name = name;
+	}
+	
 	public Long getId() {
 		return id;
 	}

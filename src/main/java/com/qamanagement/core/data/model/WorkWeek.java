@@ -30,7 +30,6 @@ public class WorkWeek implements Serializable {
 	private int number;
 
 	@Column(name = "total_number_of_resp")
-	private int totalNumberOfResp;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SELECT)
@@ -39,6 +38,11 @@ public class WorkWeek implements Serializable {
 	@Transient
 	private List<WeekResponsibility> weekResponsibilities;
 
+	public WorkWeek(int number, Project project) {
+		this.number = number;
+		this.project = project;
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -56,11 +60,16 @@ public class WorkWeek implements Serializable {
 	}
 
 	public int getTotalNumberOfResp() {
-		return totalNumberOfResp;
+		return weekResponsibilities.size();
 	}
-
-	public void setTotalNumberOfResp(int totalNumberOfResp) {
-		this.totalNumberOfResp = totalNumberOfResp;
+	
+	public int getTotalNumberOfEmployees() {
+		int total = 0;
+		for (WeekResponsibility weekResp : weekResponsibilities) {
+			total += weekResp.getNoOfEmployees(); 
+		}
+		
+		return total;
 	}
 
 	public Project getProject() {
@@ -79,5 +88,4 @@ public class WorkWeek implements Serializable {
 			List<WeekResponsibility> weekResponsibilities) {
 		this.weekResponsibilities = weekResponsibilities;
 	}
-
 }

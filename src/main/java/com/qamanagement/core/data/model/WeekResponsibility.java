@@ -19,30 +19,27 @@ import org.hibernate.annotations.FetchMode;
 public class WeekResponsibility implements Serializable {
 
 	private static final long serialVersionUID = 5825642788644260180L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@Fetch(FetchMode.SELECT)	
-	private WorkWeek workWeek;
-	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@Fetch(FetchMode.SELECT)	
-	private JobResponsibility jobResponsibility;
-	
-	public JobResponsibility getJobResponsibility() {
-		return jobResponsibility;
-	}
 
-	public void setJobResponsibility(JobResponsibility jobResponsibility) {
-		this.jobResponsibility = jobResponsibility;
-	}
+	@ManyToOne(fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SELECT)
+	private WorkWeek workWeek;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SELECT)
+	private Responsibility responsibility;
 
 	@Column(name = "no_of_employees")
 	private Integer noOfEmployees;
-	
+
+	public WeekResponsibility(WorkWeek workWeek, Responsibility responsibility) {
+		this.workWeek = workWeek;
+		this.responsibility = responsibility;
+	}
+
 	public Integer getNoOfEmployees() {
 		return noOfEmployees;
 	}
@@ -65,5 +62,13 @@ public class WeekResponsibility implements Serializable {
 
 	public void setWorkWeek(WorkWeek workWeek) {
 		this.workWeek = workWeek;
+	}
+
+	public Responsibility getResponsibility() {
+		return responsibility;
+	}
+
+	public void setResponsibility(Responsibility responsibility) {
+		this.responsibility = responsibility;
 	}
 }

@@ -63,7 +63,7 @@ public class ProjectView implements Serializable {
 				totalNumber = totalNumber
 						+ weekResponsibility.getNoOfEmployees();
 			}
-			workWeek.setTotalNumberOfResp(totalNumber);
+			//workWeek.setTotalNumberOfResp(totalNumber);
 		}
 		setWorkWeeks(workWeeks);
 	}
