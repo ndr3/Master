@@ -1,10 +1,10 @@
-package com.qamanagement.core.data.dao;
+package com.qamanagement.core.data.service;
 
 import java.util.List;
 
 import com.qamanagement.core.data.model.WorkWeek;
 
-public interface WorkWeekDao {
+public interface WorkWeekService {
 
 	void save(WorkWeek workWeek);
 

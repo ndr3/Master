@@ -7,39 +7,55 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<script name="jquery/jquery.js" library="primefaces"></script>
-	<title>#{project.name}</title>
+	<title>Project</title>
 </h:head>
 
 <h:body>
+	<f:metadata>
+		<f:viewParam name="projectId" value="#{projectView.projectId}" />
+		<f:event type="preRenderView" listener="#{projectView.loadData}" />
+	</f:metadata>
 	<h:form id="form">
 
-		<p:dataTable id="projectsTable" var="project"
-			value="#{dashboardView.projects}" rows="10" paginator="true"
-			editable="true"
-			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-			rowsPerPageTemplate="5,10,15">>
-			<f:facet name="header">Project: #{projectView.projectName}
-       		</f:facet>
-			<p:ajax event="rowEdit" listener="#{dashboardView.onRowEdit}" />
-			<p:column headerText="#{msg['dashboard.table.name']}">
-				<p:cellEditor>
-					<f:facet name="output">
-						<h:outputText value="#{project.name}" />
-					</f:facet>
-					<f:facet name="input">
-						<p:inputText value="#{project.name}" style="width:100%" />
-					</f:facet>
-				</p:cellEditor>
+		<p:dataTable id="workWeekTable" var="workWeek"
+			value="#{projectView.workWeeks}">
+			<f:facet name="header">Project 
+            #{projectView.project.name}
+        </f:facet>
+			<p:column style="width:16px">
+				<p:rowToggler />
 			</p:column>
-			<p:column style="width:80px;text-align: center">
-				<h:button value="Details" outcome="activity">
-					<f:param name="projectId" value="#{project.id}" />
-				</h:button>
-
+			<p:column headerText="Week number">
+				<h:outputText value="#{workWeek.number}" />
 			</p:column>
-			<p:column style="width:32px">
-				<p:rowEditor />
+			<p:column headerText="Total number of employees">
+				<h:outputText value="#{workWeek.totalNumberOfResp}" />
 			</p:column>
+			<p:rowExpansion>
+				<p:dataTable id="weeksTable" var="week" editable="true"
+					value="#{workWeek.weekResponsibilities}">
+					<f:facet name="header">
+           Week responsibilities
+        </f:facet>
+					<p:ajax event="rowEdit" listener="#{projectView.onRowEdit}" update="form"/>
+					<p:column headerText="Responsibility">
+						<h:outputText value="#{week.responsibility.name}" />
+					</p:column>
+					<p:column headerText="Number of employees">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{week.noOfEmployees}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{week.noOfEmployees}" style="width:100%" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column style="width:32px">
+						<p:rowEditor />
+					</p:column>
+				</p:dataTable>
+			</p:rowExpansion>
 		</p:dataTable>
 	</h:form>
 

@@ -1,6 +1,7 @@
 package com.qamanagement.core.data.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -23,12 +25,59 @@ public class WorkWeek implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	@Column(name = "number")
 	private int number;
-	
+
+	@Column(name = "total_number_of_resp")
+	private int totalNumberOfResp;
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SELECT)
 	private Project project;
-	
+
+	@Transient
+	private List<WeekResponsibility> WeekResponsibilities;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public int getNumber() {
+		return number;
+	}
+
+	public void setNumber(int number) {
+		this.number = number;
+	}
+
+	public int getTotalNumberOfResp() {
+		return totalNumberOfResp;
+	}
+
+	public void setTotalNumberOfResp(int totalNumberOfResp) {
+		this.totalNumberOfResp = totalNumberOfResp;
+	}
+
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
+
+	public List<WeekResponsibility> getWeekResponsibilities() {
+		return WeekResponsibilities;
+	}
+
+	public void setWeekResponsibilities(
+			List<WeekResponsibility> weekResponsibilities) {
+		WeekResponsibilities = weekResponsibilities;
+	}
+
 }
