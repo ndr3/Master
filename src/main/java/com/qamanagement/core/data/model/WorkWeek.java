@@ -37,7 +37,7 @@ public class WorkWeek implements Serializable {
 	private Project project;
 
 	@Transient
-	private List<WeekResponsibility> WeekResponsibilities;
+	private List<WeekResponsibility> weekResponsibilities;
 
 	public Long getId() {
 		return id;
@@ -72,12 +72,12 @@ public class WorkWeek implements Serializable {
 	}
 
 	public List<WeekResponsibility> getWeekResponsibilities() {
-		return WeekResponsibilities;
+		return weekResponsibilities;
 	}
 
 	public void setWeekResponsibilities(
 			List<WeekResponsibility> weekResponsibilities) {
-		WeekResponsibilities = weekResponsibilities;
+		this.weekResponsibilities = weekResponsibilities;
 	}
 
 }

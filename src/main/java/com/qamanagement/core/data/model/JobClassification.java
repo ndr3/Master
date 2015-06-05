@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -28,9 +29,16 @@ public class JobClassification implements Serializable {
 	@Column(name = "name", nullable = false)
 	private String name;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "jobClassification")
-	@Fetch(FetchMode.SELECT)
-	private List<Responsibility> responsibilities;
+	public List<JobResponsibility> getJobResponsibilities() {
+		return jobResponsibilities;
+	}
+
+	public void setJobResponsibilities(List<JobResponsibility> jobResponsibilities) {
+		this.jobResponsibilities = jobResponsibilities;
+	}
+
+	@Transient
+	private List<JobResponsibility> jobResponsibilities;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "jobClassification")
 	@Fetch(FetchMode.SELECT)
@@ -50,14 +58,6 @@ public class JobClassification implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public List<Responsibility> getResponsibilities() {
-		return responsibilities;
-	}
-
-	public void setResponsibilities(List<Responsibility> responsibilities) {
-		this.responsibilities = responsibilities;
 	}
 
 	public List<Employee> getEmployees() {
