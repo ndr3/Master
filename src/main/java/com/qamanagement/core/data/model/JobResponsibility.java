@@ -14,7 +14,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 @Entity
-@Table(name = "jobResponsibility")
+@Table(name = "job_responsibility")
 public class JobResponsibility implements Serializable {
 	
 	private static final long serialVersionUID = 3939220963539611716L;
@@ -22,11 +22,19 @@ public class JobResponsibility implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SELECT)	
+	private JobClassification job;
 	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SELECT)	
+	private Responsibility responsibility;	
+
 	public Long getId() {
 		return id;
 	}
-
+	
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -46,12 +54,6 @@ public class JobResponsibility implements Serializable {
 	public void setResponsibility(Responsibility responsibility) {
 		this.responsibility = responsibility;
 	}
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@Fetch(FetchMode.SELECT)	
-	private JobClassification job;
-	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@Fetch(FetchMode.SELECT)	
-	private Responsibility responsibility;
 }
+
+

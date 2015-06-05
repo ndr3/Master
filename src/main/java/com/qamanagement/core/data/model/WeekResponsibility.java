@@ -15,7 +15,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 @Entity
-@Table(name = "weekResponsibility")
+@Table(name = "week_responsibility")
 public class WeekResponsibility implements Serializable {
 
 	private static final long serialVersionUID = 5825642788644260180L;
@@ -30,8 +30,16 @@ public class WeekResponsibility implements Serializable {
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SELECT)	
-	private Responsibility responsibility;
+	private JobResponsibility jobResponsibility;
 	
+	public JobResponsibility getJobResponsibility() {
+		return jobResponsibility;
+	}
+
+	public void setJobResponsibility(JobResponsibility jobResponsibility) {
+		this.jobResponsibility = jobResponsibility;
+	}
+
 	@Column(name = "no_of_employees")
 	private Integer noOfEmployees;
 	
@@ -58,13 +66,4 @@ public class WeekResponsibility implements Serializable {
 	public void setWorkWeek(WorkWeek workWeek) {
 		this.workWeek = workWeek;
 	}
-
-	public Responsibility getResponsibility() {
-		return responsibility;
-	}
-
-	public void setResponsibility(Responsibility responsibility) {
-		this.responsibility = responsibility;
-	}
-	
 }
