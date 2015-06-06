@@ -19,6 +19,7 @@ import org.springframework.security.core.userdetails.User;
 
 import com.qamanagement.core.data.model.Project;
 import com.qamanagement.core.data.service.ProjectService;
+import com.qamanagement.core.data.service.ResourceAllocationService;
 import com.qamanagement.core.data.service.UserService;
 
 @ManagedBean(name = "dashboardView")
@@ -43,6 +44,9 @@ public class DashboardView implements Serializable {
 	@ManagedProperty(value = "#{userService}")
 	private UserService userService;
 
+	@ManagedProperty(value = "#{resourceAllocation}")
+	private ResourceAllocationService resourceAllocationService;
+
 	@PostConstruct
 	public void init() {
 		setCurrentUser();
@@ -62,7 +66,15 @@ public class DashboardView implements Serializable {
 		RequestContext requestContext = RequestContext.getCurrentInstance();
 		requestContext.execute("PF('project').hide()");
 	}
-	
+
+	public void allocateEmployeesToProject(ActionEvent actionEvent) {
+		resourceAllocationService.allocateResources(getUser().getUsername());
+		FacesMessage msg = null;
+		msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+				"Employees were allocated on projects", "");
+		FacesContext.getCurrentInstance().addMessage("createMsg", msg);
+	}
+
 	public String dashboardView() {
 		return "dashboard.xhtml?faces-redirect=true";
 	}
@@ -131,6 +143,15 @@ public class DashboardView implements Serializable {
 
 	public void setUserService(UserService userService) {
 		this.userService = userService;
+	}
+
+	public ResourceAllocationService getResourceAllocationService() {
+		return resourceAllocationService;
+	}
+
+	public void setResourceAllocationService(
+			ResourceAllocationService resourceAllocationService) {
+		this.resourceAllocationService = resourceAllocationService;
 	}
 
 }

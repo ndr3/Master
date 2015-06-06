@@ -17,15 +17,15 @@ import com.qamanagement.core.data.model.Project;
 import com.qamanagement.core.data.model.WeekResponsibility;
 import com.qamanagement.core.data.model.WorkWeek;
 import com.qamanagement.core.data.service.ProjectService;
-import com.qamanagement.core.data.service.ResourceAllocationService;
 import com.qamanagement.core.data.service.UserService;
+import com.qamanagement.core.data.service.WeekResponsibilityEmployeeService;
 import com.qamanagement.core.data.service.WeekResponsibilityService;
 import com.qamanagement.core.data.service.WorkWeekService;
 
 @ManagedBean(name = "allocationView")
 @ViewScoped
-public class AllocationView implements Serializable{
-	
+public class AllocationView implements Serializable {
+
 	private static final long serialVersionUID = 1244381637126867953L;
 
 	private User user;
@@ -40,6 +40,9 @@ public class AllocationView implements Serializable{
 
 	private List<WorkWeek> workWeeks = new ArrayList<WorkWeek>();
 
+	@ManagedProperty(value = "#{weekResponsibilityEmployeeService}")
+	private WeekResponsibilityEmployeeService weekResponsibilityEmployeeService;
+
 	@ManagedProperty(value = "#{projectService}")
 	private ProjectService projectService;
 
@@ -48,9 +51,6 @@ public class AllocationView implements Serializable{
 
 	@ManagedProperty(value = "#{weekResponsibilityService}")
 	private WeekResponsibilityService weekResponsibilityService;
-
-	@ManagedProperty(value = "#{resourceAllocation}")
-	private ResourceAllocationService resourceAllocationService;
 
 	@ManagedProperty(value = "#{userService}")
 	private UserService userService;
@@ -63,17 +63,17 @@ public class AllocationView implements Serializable{
 			int totalNumber = 0;
 			List<WeekResponsibility> workResponsibilities = weekResponsibilityService
 					.getAllWorkWeekWeekResp(workWeek.getId());
-			workWeek.setWeekResponsibilities(workResponsibilities);
 			for (WeekResponsibility weekResponsibility : workResponsibilities) {
+				weekResponsibility.setEmployees(weekResponsibilityEmployeeService.getEmployeesForWeekResponsibility(weekResponsibility.getId()));
 				totalNumber = totalNumber
 						+ weekResponsibility.getNoOfEmployees();
 			}
+			workWeek.setWeekResponsibilities(workResponsibilities);
 			workWeek.setTotalNumberOfEmployees(totalNumber);
 		}
 		setWorkWeeks(workWeeks);
 		user = (User) SecurityContextHolder.getContext().getAuthentication()
 				.getPrincipal();
-		resourceAllocationService.allocateResources(user.getUsername());
 
 	}
 
@@ -172,13 +172,13 @@ public class AllocationView implements Serializable{
 		this.weekResponsibilityService = weekResponsibilityService;
 	}
 
-	public ResourceAllocationService getResourceAllocationService() {
-		return resourceAllocationService;
+	public WeekResponsibilityEmployeeService getWeekResponsibilityEmployeeService() {
+		return weekResponsibilityEmployeeService;
 	}
 
-	public void setResourceAllocationService(
-			ResourceAllocationService resourceAllocationService) {
-		this.resourceAllocationService = resourceAllocationService;
+	public void setWeekResponsibilityEmployeeService(
+			WeekResponsibilityEmployeeService weekResponsibilityEmployeeService) {
+		this.weekResponsibilityEmployeeService = weekResponsibilityEmployeeService;
 	}
 
 }

@@ -16,6 +16,10 @@
 			<p:menuitem value="#{msg['dashboard.add']}"
 				onclick="PF('project').show();" icon="ui-icon-circle-plus">
 			</p:menuitem>
+			<p:menuitem value="Allocate employees" actionListener="#{dashboardView.allocateEmployeesToProject}" update="form"
+				icon="ui-icon-circle-plus">
+			</p:menuitem>
+			
 		</p:tabMenu>
 		<p:growl id="msgs" showDetail="true" />
 

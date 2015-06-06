@@ -40,6 +40,7 @@ public class ResourceAllocationServiceImpl implements ResourceAllocationService 
 
 	@Override
 	public void allocateResources(String email) {
+		weekResponsibilityEmployeeDao.truncate();
 		List<Employee> employees = employeeDao.getAllUserEmployees(email);
 		List<Responsibility> responsibilities = responsibilityDao
 				.getAllResponsibilities();

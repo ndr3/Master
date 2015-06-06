@@ -32,28 +32,35 @@
 				<h:outputText value="#{workWeek.totalNumberOfEmployees}" />
 			</p:column>
 			<p:rowExpansion>
-				<p:dataTable id="weeksTable" var="week" editable="true"
+				<p:dataTable id="weeksTable" var="week"
 					value="#{workWeek.weekResponsibilities}">
 					<f:facet name="header">
            Week responsibilities
         </f:facet>
-					<p:ajax event="rowEdit" listener="#{allocationView.onRowEdit}" update="form"/>
+					<p:ajax event="rowEdit" listener="#{allocationView.onRowEdit}"
+						update="form" />
+					<p:column style="width:16px">
+						<p:rowToggler />
+					</p:column>
 					<p:column headerText="Responsibility">
 						<h:outputText value="#{week.responsibility.name}" />
 					</p:column>
 					<p:column headerText="Number of employees">
-						<p:cellEditor>
-							<f:facet name="output">
-								<h:outputText value="#{week.noOfEmployees}" />
-							</f:facet>
-							<f:facet name="input">
-								<p:inputText value="#{week.noOfEmployees}" style="width:100%" />
-							</f:facet>
-						</p:cellEditor>
+						<h:outputText value="#{week.noOfEmployees}" />
 					</p:column>
-					<p:column style="width:32px">
-						<p:rowEditor />
-					</p:column>
+					<p:rowExpansion>
+						<p:dataTable id="employeeTable" var="employee"
+							value="#{week.employees}">
+							<f:facet name="header">
+           Assigned employees
+        </f:facet>
+							<p:column headerText="Name">
+								<h:outputText value="#{employee.name}" />
+							</p:column>
+							<p:column headerText="Number of employees">
+							</p:column>
+						</p:dataTable>
+					</p:rowExpansion>
 				</p:dataTable>
 			</p:rowExpansion>
 		</p:dataTable>
