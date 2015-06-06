@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<script name="jquery/jquery.js" library="primefaces"></script>
+	<title>Overview</title>
+	<style type="text/css">
+.SUCCESS {
+	background-color: #FF9900 !important;
+	font: bold !important;
+}
+
+.DEFAULT {
+	background-color: white !important;
+}
+</style>
+</h:head>
+
+<h:body>
+	<h:form id="form">
+		<p:dataTable id="btotalOverviewTable" var="project"
+			value="#{overviewView.totalOverviewTO}">
+			<p:column headerText="Project name">
+				<h:outputText value="#{project.name}" />
+			</p:column>
+			<p:columns value="#{overviewView.columns}" var="column"
+				styleClass="#{bs.values[column.index] eq '' ? 'DEFAULT' : 'SUCCESS'}">
+				<f:facet name="header">
+					<h:outputText value="#{column.header}" />
+				</f:facet>
+				<h:outputText value="#{project.values[column.index]}" />
+			</p:columns>
+		</p:dataTable>
+	</h:form>
+
+	<ui:include src="/pages/secure/menu.xhtml" />
+</h:body>
+
+</html>

@@ -13,6 +13,7 @@ import org.primefaces.event.RowEditEvent;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 
+import com.qamanagement.core.data.model.Employee;
 import com.qamanagement.core.data.model.Project;
 import com.qamanagement.core.data.model.WeekResponsibility;
 import com.qamanagement.core.data.model.WorkWeek;
@@ -61,13 +62,34 @@ public class AllocationView implements Serializable {
 				.getAllProjectWorkWeeks(projectId);
 		for (WorkWeek workWeek : workWeeks) {
 			int totalNumber = 0;
+			int totalAssignedEmployeesNumber = 0;
+			int totalUnassignedEmployeeNumber = 0;
 			List<WeekResponsibility> workResponsibilities = weekResponsibilityService
 					.getAllWorkWeekWeekResp(workWeek.getId());
 			for (WeekResponsibility weekResponsibility : workResponsibilities) {
-				weekResponsibility.setEmployees(weekResponsibilityEmployeeService.getEmployeesForWeekResponsibility(weekResponsibility.getId()));
+				List<Employee> assignedEmployes = weekResponsibilityEmployeeService
+						.getEmployeesForWeekResponsibility(weekResponsibility
+								.getId());
+				int assignedEmployeesNumber = assignedEmployes.size();
+				int unassignedEmployeeNumber = weekResponsibility
+						.getNoOfEmployees() - assignedEmployeesNumber;
+				weekResponsibility
+						.setUnassignedEmployeeNumber(unassignedEmployeeNumber);
+				weekResponsibility
+						.setAssignedEmployeesNumber(assignedEmployeesNumber);
+				weekResponsibility
+						.setEmployees(weekResponsibilityEmployeeService
+								.getEmployeesForWeekResponsibility(weekResponsibility
+										.getId()));
 				totalNumber = totalNumber
 						+ weekResponsibility.getNoOfEmployees();
+				totalAssignedEmployeesNumber = totalAssignedEmployeesNumber
+						+ assignedEmployeesNumber;
+				totalUnassignedEmployeeNumber = totalUnassignedEmployeeNumber
+						+ unassignedEmployeeNumber;
 			}
+			workWeek.setTotalAssignedEmployeesNumber(totalAssignedEmployeesNumber);
+			workWeek.setTotalUnassignedEmployeeNumber(totalUnassignedEmployeeNumber);
 			workWeek.setWeekResponsibilities(workResponsibilities);
 			workWeek.setTotalNumberOfEmployees(totalNumber);
 		}

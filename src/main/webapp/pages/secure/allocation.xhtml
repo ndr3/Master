@@ -26,10 +26,16 @@
 				<p:rowToggler />
 			</p:column>
 			<p:column headerText="Week number">
-				<h:outputText value="#{workWeek.number}" />
+				<h:outputText value="Week #{workWeek.number}" />
 			</p:column>
 			<p:column headerText="Total number of employees">
 				<h:outputText value="#{workWeek.totalNumberOfEmployees}" />
+			</p:column>
+			<p:column headerText="Assigned number of employees">
+				<h:outputText value="#{workWeek.totalAssignedEmployeesNumber}" />
+			</p:column>
+			<p:column headerText="Unassigned number of employees">
+				<h:outputText value="#{workWeek.totalUnassignedEmployeeNumber}" />
 			</p:column>
 			<p:rowExpansion>
 				<p:dataTable id="weeksTable" var="week"
@@ -47,6 +53,12 @@
 					</p:column>
 					<p:column headerText="Number of employees">
 						<h:outputText value="#{week.noOfEmployees}" />
+					</p:column>
+					<p:column headerText="Assigned number of employees">
+						<h:outputText value="#{week.assignedEmployeesNumber}" />
+					</p:column>
+					<p:column headerText="Unassigned number of employees">
+						<h:outputText value="#{week.unassignedEmployeeNumber}" />
 					</p:column>
 					<p:rowExpansion>
 						<p:dataTable id="employeeTable" var="employee"

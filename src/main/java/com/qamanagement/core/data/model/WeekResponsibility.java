@@ -40,6 +40,12 @@ public class WeekResponsibility implements Serializable {
 	@Transient
 	private List<Employee> employees;
 
+	@Transient
+	private int assignedEmployeesNumber;
+
+	@Transient
+	private int unassignedEmployeeNumber = 0;
+
 	public WeekResponsibility() {
 		super();
 	}
@@ -87,6 +93,22 @@ public class WeekResponsibility implements Serializable {
 
 	public void setEmployees(List<Employee> employees) {
 		this.employees = employees;
+	}
+
+	public int getAssignedEmployeesNumber() {
+		return assignedEmployeesNumber;
+	}
+
+	public void setAssignedEmployeesNumber(int assignedEmployeesNumber) {
+		this.assignedEmployeesNumber = assignedEmployeesNumber;
+	}
+
+	public int getUnassignedEmployeeNumber() {
+		return unassignedEmployeeNumber;
+	}
+
+	public void setUnassignedEmployeeNumber(int unassignedEmployeeNumber) {
+		this.unassignedEmployeeNumber = unassignedEmployeeNumber;
 	}
 
 }

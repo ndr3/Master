@@ -31,7 +31,7 @@ public class WorkWeek implements Serializable {
 
 	@Column(name = "total_number_of_resp")
 	private int totalNumberOfResp;
-	
+
 	@Transient
 	private int totalNumberOfEmployees;
 
@@ -41,6 +41,12 @@ public class WorkWeek implements Serializable {
 
 	@Transient
 	private List<WeekResponsibility> weekResponsibilities;
+
+	@Transient
+	private int totalAssignedEmployeesNumber;
+
+	@Transient
+	private int totalUnassignedEmployeeNumber;
 
 	public WorkWeek() {
 		super();
@@ -77,8 +83,8 @@ public class WorkWeek implements Serializable {
 
 	public void setProject(Project project) {
 		this.project = project;
-	}	
-	
+	}
+
 	public int getTotalNumberOfEmployees() {
 		return totalNumberOfEmployees;
 	}
@@ -95,4 +101,26 @@ public class WorkWeek implements Serializable {
 			List<WeekResponsibility> weekResponsibilities) {
 		this.weekResponsibilities = weekResponsibilities;
 	}
+
+	public int getTotalAssignedEmployeesNumber() {
+		return totalAssignedEmployeesNumber;
+	}
+
+	public void setTotalAssignedEmployeesNumber(int totalAssignedEmployeesNumber) {
+		this.totalAssignedEmployeesNumber = totalAssignedEmployeesNumber;
+	}
+
+	public int getTotalUnassignedEmployeeNumber() {
+		return totalUnassignedEmployeeNumber;
+	}
+
+	public void setTotalUnassignedEmployeeNumber(
+			int totalUnassignedEmployeeNumber) {
+		this.totalUnassignedEmployeeNumber = totalUnassignedEmployeeNumber;
+	}
+
+	public void setTotalNumberOfResp(int totalNumberOfResp) {
+		this.totalNumberOfResp = totalNumberOfResp;
+	}
+
 }
