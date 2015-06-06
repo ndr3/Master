@@ -37,7 +37,7 @@
 					<f:facet name="header">
            Week responsibilities
         </f:facet>
-					<p:ajax event="rowEdit" listener="#{projectView.onRowEdit}" update="form"/>
+					<p:ajax event="rowEdit" listener="#{projectView.onRowEdit}"/>
 					<p:column headerText="Responsibility">
 						<h:outputText value="#{week.responsibility.name}" />
 					</p:column>

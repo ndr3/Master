@@ -73,7 +73,6 @@ public class ProjectView implements Serializable {
 		setWorkWeeks(workWeeks);
 		user = (User) SecurityContextHolder.getContext().getAuthentication()
 				.getPrincipal();
-		resourceAllocationService.allocateResources(user.getUsername());
 
 	}
 
