@@ -33,7 +33,11 @@ public class WeekResponsibility implements Serializable {
 	private Responsibility responsibility;
 
 	@Column(name = "no_of_employees")
-	private Integer noOfEmployees;
+	private Integer noOfEmployees = 0;
+
+	public WeekResponsibility() {
+		super();
+	}
 
 	public WeekResponsibility(WorkWeek workWeek, Responsibility responsibility) {
 		this.workWeek = workWeek;

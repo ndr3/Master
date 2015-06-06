@@ -1,8 +1,6 @@
 package com.qamanagement.core.data.service;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.qamanagement.core.data.dao.ProjectDao;
+import com.qamanagement.core.data.dao.ResponsibilityDao;
+import com.qamanagement.core.data.dao.WeekResponsibilityDao;
 import com.qamanagement.core.data.dao.WorkWeekDao;
 import com.qamanagement.core.data.model.Project;
 import com.qamanagement.core.data.model.Responsibility;
@@ -21,16 +21,19 @@ import com.qamanagement.core.data.model.WorkWeek;
 public class ProjectServiceImpl implements ProjectService, Serializable {
 
 	private static final long serialVersionUID = 2801892702029559306L;
-	private static final int noOfWeeks = 12;
-	private static final List<String> responsibilities = Arrays.asList("Test",
-			"Automation", "Field Support", "Design", "Maintain Plan",
-			"Outsource Docs", "Trade Show", "Test Planning", "Outsource");
+	private static final int NO_OF_WEEKS = 12;
 
 	@Autowired
 	private ProjectDao projectDao;
 
 	@Autowired
 	private WorkWeekDao workWeekDao;
+
+	@Autowired
+	private WeekResponsibilityDao weekResponsibilityDao;
+
+	@Autowired
+	private ResponsibilityDao responsibilityDao;
 
 	@Override
 	public List<Project> getAllUserProjects(String email) {
@@ -55,24 +58,23 @@ public class ProjectServiceImpl implements ProjectService, Serializable {
 
 	// initialize each work week
 	private void generateWorkWeeks(Project project) {
-		for (int i = 1; i <= noOfWeeks; ++i) {
+		for (int i = 1; i <= NO_OF_WEEKS; ++i) {
 			WorkWeek workWeek = new WorkWeek(i, project);
+			workWeekDao.save(workWeek);
 			generateWeekResponsibilities(workWeek);
 		}
 	}
 
 	// initialize each week responsibility
 	private void generateWeekResponsibilities(WorkWeek workWeek) {
-		List<WeekResponsibility> weekResponsibilities = new ArrayList<WeekResponsibility>();
-		for (int i = 0; i < responsibilities.size(); ++i) {
-			Responsibility responsibility = new Responsibility(
-					responsibilities.get(i));
+		List<Responsibility> responsibilities = responsibilityDao
+				.getAllResponsibilities();
+		for (Responsibility responsibility : responsibilities) {
 			WeekResponsibility weekResponsibility = new WeekResponsibility(
 					workWeek, responsibility);
-			weekResponsibilities.add(weekResponsibility);
+			weekResponsibilityDao.save(weekResponsibility);
 		}
 
-		workWeek.setWeekResponsibilities(weekResponsibilities);
 	}
 
 }

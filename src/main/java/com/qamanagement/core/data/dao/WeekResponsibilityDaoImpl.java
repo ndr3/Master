@@ -24,6 +24,22 @@ public class WeekResponsibilityDaoImpl extends AbstractDao implements
 		List<WeekResponsibility> weekResponsibilities = criteria.list();
 		return weekResponsibilities;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<WeekResponsibility> getAllWeekRespByWeekNumberAndUserEmail(int weekNumber, String email, long responsibilityId) {
+		Criteria criteria = getSession().createCriteria(
+				WeekResponsibility.class, "ac");
+		criteria.createAlias("ac.workWeek", "workWeek");
+		criteria.createAlias("ac.responsibility", "responsibility");
+		criteria.createAlias("workWeek.project", "project");
+		criteria.createAlias("project.user", "user");
+		criteria.add(Restrictions.eq("workWeek.number", weekNumber));
+		criteria.add(Restrictions.eq("user.email", email));
+		criteria.add(Restrictions.eq("responsibility.id", responsibilityId));
+		List<WeekResponsibility> weekResponsibilities = criteria.list();
+		return weekResponsibilities;
+	}
 
 	@Override
 	public void save(WeekResponsibility weekResponsibility) {

@@ -12,4 +12,7 @@ public interface WeekResponsibilityDao {
 
 	void update(WeekResponsibility weekResponsibility);
 
+	List<WeekResponsibility> getAllWeekRespByWeekNumberAndUserEmail(
+			int weekNumber, String email, long responsibilityId);
+
 }
