@@ -44,7 +44,12 @@
 						<h:outputText value="#{employee.jobClassification.name}" />
 					</f:facet>
 					<f:facet name="input">
-						<p:inputText value="#{employee.jobClassification.name}" style="width:100%" />
+						<p:selectOneMenu id="job" value="#{employeeView.selectedJob}"
+							style="width:150px">
+							<f:selectItem itemLabel="-Select-" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems value="#{employeeView.jobs}" />
+						</p:selectOneMenu>
 					</f:facet>
 				</p:cellEditor>
 			</p:column>
@@ -69,6 +74,15 @@
 					requiredMessage="#{msg['employee.create.name.required']}">
 				</p:inputText>
 				<p:message for="name" autoUpdate="true" />
+
+				<p:outputLabel for="job" value="Job Classification" />
+				<p:selectOneMenu id="job" value="#{employeeView.selectedJob}"
+					style="width:150px">
+					<f:selectItem itemLabel="-Select-" itemValue=""
+						noSelectionOption="true" />
+					<f:selectItems value="#{employeeView.jobs}" />
+				</p:selectOneMenu>
+				<p:message for="job" autoUpdate="true" />
 				<f:facet name="footer">
 					<p:commandButton id="saveButton"
 						value="#{msg['employee.create.save']}" update="form"

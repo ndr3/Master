@@ -112,13 +112,13 @@ public class OverviewView implements Serializable {
 				total.add(Integer.toString(totalNumber));
 				assigned.add(Integer.toString(totalAssignedEmployeesNumber));
 				unassigned.add(Integer.toString(totalUnassignedEmployeeNumber));
-				totalOverview.setName(project.getName());
-				totalOverview.setValues(total);
-				assignedOverview.setName(project.getName());
-				assignedOverview.setValues(assigned);
-				unassignedOverview.setName(project.getName());
-				unassignedOverview.setValues(unassigned);
 			}
+			totalOverview.setName(project.getName());
+			totalOverview.setValues(total);
+			assignedOverview.setName(project.getName());
+			assignedOverview.setValues(assigned);
+			unassignedOverview.setName(project.getName());
+			unassignedOverview.setValues(unassigned);
 			totalOverviewTO.add(totalOverview);
 			assignedOverviewTO.add(assignedOverview);
 			unassignedOverviewTO.add(unassignedOverview);

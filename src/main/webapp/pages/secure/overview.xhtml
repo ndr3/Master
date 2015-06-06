@@ -9,11 +9,18 @@
 	<script name="jquery/jquery.js" library="primefaces"></script>
 	<title>Overview</title>
 	<style type="text/css">
-.SUCCESS {
-	background-color: #FF9900 !important;
+.ASSIGNED {
+	background-color: #33CC66 !important;
 	font: bold !important;
 }
-
+.UNASSIGNED {
+	background-color: #FF3333 !important;
+	font: bold !important;
+}
+.TOTAL {
+	background-color: #FFFF99 !important;
+	font: bold !important;
+}
 .DEFAULT {
 	background-color: white !important;
 }
@@ -24,17 +31,51 @@
 	<h:form id="form">
 		<p:dataTable id="btotalOverviewTable" var="project"
 			value="#{overviewView.totalOverviewTO}">
+			<f:facet name="header">Total number of emplyees needed
+        </f:facet>
 			<p:column headerText="Project name">
 				<h:outputText value="#{project.name}" />
 			</p:column>
-			<p:columns value="#{overviewView.columns}" var="column"
-				styleClass="#{bs.values[column.index] eq '' ? 'DEFAULT' : 'SUCCESS'}">
+			<p:columns value="#{overviewView.columns}" var="column" styleClass="TOTAL">
 				<f:facet name="header">
 					<h:outputText value="#{column.header}" />
 				</f:facet>
 				<h:outputText value="#{project.values[column.index]}" />
 			</p:columns>
 		</p:dataTable>
+		<p:dataTable id="assignedOverviewTable" var="project"
+			value="#{overviewView.assignedOverviewTO}">
+			<f:facet name="header">Total number of emplyees assigned
+        </f:facet>
+			<p:column headerText="Project name">
+				<h:outputText value="#{project.name}" />
+			</p:column>
+			<p:columns value="#{overviewView.columns}" var="column"
+				styleClass="ASSIGNED">
+				<f:facet name="header">
+					<h:outputText value="#{column.header}" />
+				</f:facet>
+				<h:outputText value="#{project.values[column.index]}" />
+			</p:columns>
+		</p:dataTable>
+		<p:dataTable id="unassignedOverviewTable" var="project"
+			value="#{overviewView.unassignedOverviewTO}">
+			<f:facet name="header">Total number of emplyees unasigned
+        </f:facet>
+			<p:column headerText="Project name">
+				<h:outputText value="#{project.name}" />
+			</p:column>
+			<p:columns value="#{overviewView.columns}" var="column"
+				styleClass="UNASSIGNED">
+				<f:facet name="header">
+					<h:outputText value="#{column.header}" />
+				</f:facet>
+				<h:outputText value="#{project.values[column.index]}" />
+			</p:columns>
+		</p:dataTable>
+	</h:form>
+	
+	<h:form style="height:70px">
 	</h:form>
 
 	<ui:include src="/pages/secure/menu.xhtml" />
