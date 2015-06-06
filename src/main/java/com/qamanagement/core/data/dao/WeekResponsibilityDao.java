@@ -15,4 +15,7 @@ public interface WeekResponsibilityDao {
 	List<WeekResponsibility> getAllWeekRespByWeekNumberAndUserEmail(
 			int weekNumber, String email, long responsibilityId);
 
+	WeekResponsibility getWeekRespByWeekNumberAndProjectIdAndResponsibilityId(
+			int weekNumber, long projectId, long responsibilityId);
+
 }

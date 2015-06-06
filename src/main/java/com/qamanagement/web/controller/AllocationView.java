@@ -22,11 +22,11 @@ import com.qamanagement.core.data.service.UserService;
 import com.qamanagement.core.data.service.WeekResponsibilityService;
 import com.qamanagement.core.data.service.WorkWeekService;
 
-@ManagedBean(name = "projectView")
+@ManagedBean(name = "allocationView")
 @ViewScoped
-public class ProjectView implements Serializable {
-
-	private static final long serialVersionUID = 5323066814321042662L;
+public class AllocationView implements Serializable{
+	
+	private static final long serialVersionUID = 1244381637126867953L;
 
 	private User user;
 

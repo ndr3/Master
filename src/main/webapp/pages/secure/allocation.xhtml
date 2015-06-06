@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<script name="jquery/jquery.js" library="primefaces"></script>
+	<title>Project</title>
+</h:head>
+
+<h:body>
+	<f:metadata>
+		<f:viewParam name="projectId" value="#{allocationView.projectId}" />
+		<f:event type="preRenderView" listener="#{allocationView.loadData}" />
+	</f:metadata>
+	<h:form id="form">
+
+		<p:dataTable id="workWeekTable" var="workWeek"
+			value="#{allocationView.workWeeks}">
+			<f:facet name="header">Project 
+            #{allocationView.project.name}
+        </f:facet>
+			<p:column style="width:16px">
+				<p:rowToggler />
+			</p:column>
+			<p:column headerText="Week number">
+				<h:outputText value="#{workWeek.number}" />
+			</p:column>
+			<p:column headerText="Total number of employees">
+				<h:outputText value="#{workWeek.totalNumberOfEmployees}" />
+			</p:column>
+			<p:rowExpansion>
+				<p:dataTable id="weeksTable" var="week" editable="true"
+					value="#{workWeek.weekResponsibilities}">
+					<f:facet name="header">
+           Week responsibilities
+        </f:facet>
+					<p:ajax event="rowEdit" listener="#{allocationView.onRowEdit}" update="form"/>
+					<p:column headerText="Responsibility">
+						<h:outputText value="#{week.responsibility.name}" />
+					</p:column>
+					<p:column headerText="Number of employees">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{week.noOfEmployees}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{week.noOfEmployees}" style="width:100%" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column style="width:32px">
+						<p:rowEditor />
+					</p:column>
+				</p:dataTable>
+			</p:rowExpansion>
+		</p:dataTable>
+	</h:form>
+
+	<ui:include src="/pages/secure/menu.xhtml" />
+</h:body>
+
+</html>

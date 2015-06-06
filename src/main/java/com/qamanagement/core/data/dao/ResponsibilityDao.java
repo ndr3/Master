@@ -8,4 +8,6 @@ public interface ResponsibilityDao {
 
 	List<Responsibility> getAllResponsibilities();
 
+	List<Responsibility> getAllResponsibilitiesByJobClassification(Long jobId);
+
 }

@@ -1,5 +1,6 @@
 package com.qamanagement.core.data.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -23,10 +24,21 @@ public class ResponsibilityDaoImpl extends AbstractDao implements
 		return responsibilities;
 	}
 
-//	public List<Responsibility> getAllResponsibilitiesByJobClassification(
-//			Long jobId) {
-//		Criteria criteria = getSession().createCriteria(JobResponsibility.class);
-//		criteria.add(Restrictions.eq("job.id", jobId));
-//	}
+	@SuppressWarnings("unchecked")
+	@Override	
+	public List<Responsibility> getAllResponsibilitiesByJobClassification(
+			Long jobId) {
+		Criteria criteria = getSession().createCriteria(JobResponsibility.class, "jr");
+		criteria.createAlias("jr.job", "job");
+		criteria.add(Restrictions.eq("job.id", jobId));
+		List<JobResponsibility> jobResponsibilities = criteria.list();
+		List<Responsibility> responsibilities = new ArrayList<Responsibility>();
+		if(jobResponsibilities!=null){
+			for(JobResponsibility jobResponsibility: jobResponsibilities){
+				responsibilities.add(jobResponsibility.getResponsibility());
+			}
+		}
+		return responsibilities;
+	}
 
 }
