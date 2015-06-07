@@ -1,5 +1,7 @@
 package com.qamanagement.core.data.service;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +33,7 @@ public class ResourceAllocationServiceImpl implements ResourceAllocationService 
 
 	@Autowired
 	private ResponsibilityDao responsibilityDao;
-	
+
 	@Autowired
 	private WeekResponsibilityEmployeeDao weekResponsibilityEmployeeDao;
 
@@ -61,7 +63,8 @@ public class ResourceAllocationServiceImpl implements ResourceAllocationService 
 
 			}
 
-			// TODO: sort employees by number of responsibilities
+			sortEmployeesByNumberOfResponsibilities(employees);
+
 			for (Employee employee : employees) {
 				List<Responsibility> employeeResponsibilities = responsibilityDao
 						.getAllResponsibilitiesByJobClassification(employee
@@ -78,11 +81,15 @@ public class ResourceAllocationServiceImpl implements ResourceAllocationService 
 							noOfEmployees = noOfEmployees - 1;
 							noOfEmployeesByProject.put(projctId, noOfEmployees);
 							assigned = true;
-							WeekResponsibility weekResponsibility = weekResponsibilityDao.getWeekRespByWeekNumberAndProjectIdAndResponsibilityId(i, projctId, responsibility.getId());
+							WeekResponsibility weekResponsibility = weekResponsibilityDao
+									.getWeekRespByWeekNumberAndProjectIdAndResponsibilityId(
+											i, projctId, responsibility.getId());
 							WeekResponsibilityEmployee weekResponsibilityEmployee = new WeekResponsibilityEmployee();
 							weekResponsibilityEmployee.setEmployee(employee);
-							weekResponsibilityEmployee.setWeekResponsibility(weekResponsibility);
-							weekResponsibilityEmployeeDao.save(weekResponsibilityEmployee);
+							weekResponsibilityEmployee
+									.setWeekResponsibility(weekResponsibility);
+							weekResponsibilityEmployeeDao
+									.save(weekResponsibilityEmployee);
 							break;
 						}
 					}
@@ -97,4 +104,20 @@ public class ResourceAllocationServiceImpl implements ResourceAllocationService 
 
 	}
 
+	private void sortEmployeesByNumberOfResponsibilities(
+			List<Employee> employees) {
+
+		Collections.sort(employees, new Comparator<Employee>() {
+			public int compare(Employee e1, Employee e2) {
+				int noOfResponsibilities1 = e1.getJobClassification()
+						.getJobResponsibilities().size();
+				int noOfResponsibilities2 = e2.getJobClassification()
+						.getJobResponsibilities().size();
+
+				return (noOfResponsibilities1 < noOfResponsibilities2) ? -1
+						: ((noOfResponsibilities1 == noOfResponsibilities2) ? 0
+								: 1);
+			}
+		});
+	}
 }

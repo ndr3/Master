@@ -20,7 +20,6 @@ public class JobClassificationServiceImpl implements JobClassificationService,
 	@Autowired
 	private JobClassificationDao jobClassificationDao;
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<JobClassification> getAllJobClassification() {
 		return jobClassificationDao.getAllJobClassification();

@@ -19,7 +19,6 @@ public class WeekResponsibilityEmployeeServiceImpl implements WeekResponsibility
 	@Autowired
 	private WeekResponsibilityEmployeeDao weekResponsibilityEmployeeDao;
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<Employee> getEmployeesForWeekResponsibility(long responsibilityId) {
 		return weekResponsibilityEmployeeDao.getEmployeesForWeekResponsibility(responsibilityId);
