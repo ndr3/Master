@@ -28,7 +28,7 @@
 			<p:panel id="pnl" header="#{msg['login.header']}"
 				style="margin-top:5%;margin-left:30%;display:block; text-align:center;width:500px;">
 				<p:messages for="msgLogin" />
-				<h:panelGrid columns="3">
+				<h:panelGrid columns="3" style="margin-left:5%;">
 					<h:outputLabel for="userName" value="#{msg['login.username']}" />
 					<p:inputText id="userName" value="#{loginMgmtBean.userName}"
 						required="true" label="Username"
@@ -55,7 +55,7 @@
 
 <!-- create a new account -->
 <p:dialog id="dialog" header="Register new account" widgetVar="account"
-	modal="true" showEffect="drop" hideEffect="drop" height="370">
+	modal="true" showEffect="drop" hideEffect="drop" height="300">
 	<h:form>
 		<h:panelGrid columns="3" id="newAccount">
 			<f:facet name="header">
