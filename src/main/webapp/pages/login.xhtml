@@ -26,7 +26,7 @@
 		<h:form>
 			<!-- 		login section -->
 			<p:panel id="pnl" header="#{msg['login.header']}"
-				style="margin-top:0%;margin-left:29%;display:block; text-align:center;width:500px;">
+				style="margin-top:5%;margin-left:30%;display:block; text-align:center;width:500px;">
 				<p:messages for="msgLogin" />
 				<h:panelGrid columns="3">
 					<h:outputLabel for="userName" value="#{msg['login.username']}" />
@@ -43,10 +43,10 @@
 					<p:message for="password" />
 				</h:panelGrid>
 
-				<p:commandButton id="saveBtn" value="#{msg['login.login']}"
-					update="pnl" style="margin:0" action="#{loginMgmtBean.login}"
-					title="#{msg['login.login']}" />
-				<p:commandButton id="signUpBt" value="#{msg['login.signUp']}"
+				<p:commandButton id="loginBtn" value="#{msg['login.login']}"
+					update="pnl" style="margin-right:2%; margin-top:2%;"
+					action="#{loginMgmtBean.login}" title="#{msg['login.login']}" />
+				<p:commandButton id="signUpBt" value="Register"
 					onclick="PF('account').show();" type="button" />
 			</p:panel>
 		</h:form>
@@ -54,9 +54,8 @@
 </p:layout>
 
 <!-- create a new account -->
-<p:dialog id="dialog" header="#{msg['login.header.create.account']}"
-	widgetVar="account" modal="true" showEffect="drop" hideEffect="drop"
-	height="370">
+<p:dialog id="dialog" header="Register new account" widgetVar="account"
+	modal="true" showEffect="drop" hideEffect="drop" height="370">
 	<h:form>
 		<h:panelGrid columns="3" id="newAccount">
 			<f:facet name="header">
@@ -111,8 +110,8 @@
 				requiredMessage="#{msg['login.new.password.requiered']}" />
 			<p:message for="passwordRe" />
 			<f:facet name="footer">
-				<p:commandButton id="saveButton"
-					value="#{msg['login.new.create.account']}" update="newAccount"
+				<p:commandButton id="saveButton" value="Register"
+					update="newAccount" style="margin-left:38%; margin-top:10%;"
 					actionListener="#{newAccount.save}"
 					oncomplete="handleLoginRequest(xhr, status, args)" />
 			</f:facet>
