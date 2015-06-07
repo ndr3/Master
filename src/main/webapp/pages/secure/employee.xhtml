@@ -13,7 +13,7 @@
 <h:body>
 	<h:form id="form">
 		<p:tabMenu activeIndex="-1">
-			<p:menuitem value="#{msg['employee.add']}"
+			<p:menuitem value="Add Employee"
 				onclick="PF('employee').show();" icon="ui-icon-circle-plus">
 			</p:menuitem>
 		</p:tabMenu>
@@ -62,7 +62,7 @@
 	<!-- create new employee -->
 	<p:dialog id="dialog" header="#{msg['employee.create.header']}"
 		widgetVar="employee" modal="true" showEffect="drop" hideEffect="drop"
-		height="100">
+		height="150">
 		<h:form>
 			<h:panelGrid columns="3" id="newEmployee">
 				<f:facet name="header">
@@ -84,7 +84,7 @@
 				</p:selectOneMenu>
 				<p:message for="job" autoUpdate="true" />
 				<f:facet name="footer">
-					<p:commandButton id="saveButton"
+					<p:commandButton id="saveButton" style="margin-left:40%; margin-top:2%;"
 						value="#{msg['employee.create.save']}" update="form"
 						actionListener="#{employeeView.save}" />
 				</f:facet>

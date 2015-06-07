@@ -13,13 +13,14 @@
 <h:body>
 	<h:form id="form">
 		<p:tabMenu activeIndex="-1">
-			<p:menuitem value="#{msg['dashboard.add']}"
+			<p:menuitem value="Add Project"
 				onclick="PF('project').show();" icon="ui-icon-circle-plus">
 			</p:menuitem>
-			<p:menuitem value="Allocate employees" actionListener="#{dashboardView.allocateEmployeesToProject}" update="form"
-				icon="ui-icon-circle-plus">
+			<p:menuitem value="Assign Employees"
+				actionListener="#{dashboardView.allocateEmployeesToProject}"
+				update="form">
 			</p:menuitem>
-			
+
 		</p:tabMenu>
 		<p:growl id="msgs" showDetail="true" />
 
@@ -49,7 +50,7 @@
 
 			</p:column>
 			<p:column style="width:200px;text-align: center">
-				<h:button value="Allocated employees" outcome="allocation">
+				<h:button value="Assigned Employees" outcome="allocation">
 					<f:param name="projectId" value="#{project.id}" />
 				</h:button>
 

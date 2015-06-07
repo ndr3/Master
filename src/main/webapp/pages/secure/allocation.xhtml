@@ -28,13 +28,13 @@
 			<p:column headerText="Week number">
 				<h:outputText value="Week #{workWeek.number}" />
 			</p:column>
-			<p:column headerText="Total number of employees">
+			<p:column headerText="Number of employees needed">
 				<h:outputText value="#{workWeek.totalNumberOfEmployees}" />
 			</p:column>
-			<p:column headerText="Assigned number of employees">
+			<p:column headerText="Number of assigned employees">
 				<h:outputText value="#{workWeek.totalAssignedEmployeesNumber}" />
 			</p:column>
-			<p:column headerText="Unassigned number of employees">
+			<p:column headerText="Number of unassigned employees">
 				<h:outputText value="#{workWeek.totalUnassignedEmployeeNumber}" />
 			</p:column>
 			<p:rowExpansion>
@@ -51,13 +51,13 @@
 					<p:column headerText="Responsibility">
 						<h:outputText value="#{week.responsibility.name}" />
 					</p:column>
-					<p:column headerText="Number of employees">
+					<p:column headerText="Number of employees needed">
 						<h:outputText value="#{week.noOfEmployees}" />
 					</p:column>
-					<p:column headerText="Assigned number of employees">
+					<p:column headerText="Number of assigned employees">
 						<h:outputText value="#{week.assignedEmployeesNumber}" />
 					</p:column>
-					<p:column headerText="Unassigned number of employees">
+					<p:column headerText="Number of unassigned employees">
 						<h:outputText value="#{week.unassignedEmployeeNumber}" />
 					</p:column>
 					<p:rowExpansion>
@@ -78,7 +78,6 @@
 			</p:rowExpansion>
 		</p:dataTable>
 	</h:form>
-
 	<ui:include src="/pages/secure/menu.xhtml" />
 </h:body>
 

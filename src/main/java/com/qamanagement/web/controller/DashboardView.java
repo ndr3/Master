@@ -71,7 +71,7 @@ public class DashboardView implements Serializable {
 		resourceAllocationService.allocateResources(getUser().getUsername());
 		FacesMessage msg = null;
 		msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-				"Employees were allocated on projects", "");
+				"Employees were assigned to projects", "");
 		FacesContext.getCurrentInstance().addMessage("createMsg", msg);
 	}
 
