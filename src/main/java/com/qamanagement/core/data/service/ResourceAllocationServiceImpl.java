@@ -63,7 +63,7 @@ public class ResourceAllocationServiceImpl implements ResourceAllocationService 
 
 			}
 
-			sortEmployeesByNumberOfResponsibilities(employees);
+			//sortEmployeesByNumberOfResponsibilities(employees);
 
 			for (Employee employee : employees) {
 				List<Responsibility> employeeResponsibilities = responsibilityDao
@@ -104,6 +104,7 @@ public class ResourceAllocationServiceImpl implements ResourceAllocationService 
 
 	}
 
+	@SuppressWarnings("unused")
 	private void sortEmployeesByNumberOfResponsibilities(
 			List<Employee> employees) {
 

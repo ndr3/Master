@@ -11,6 +11,8 @@
 </h:head>
 
 <h:body>
+
+	<ui:include src="/pages/secure/userInfo.xhtml" />
 	<f:metadata>
 		<f:viewParam name="projectId" value="#{projectView.projectId}" />
 		<f:event type="preRenderView" listener="#{projectView.loadData}" />
@@ -37,7 +39,7 @@
 					<f:facet name="header">
            Week Responsibilities
         </f:facet>
-					<p:ajax event="rowEdit" listener="#{projectView.onRowEdit}"/>
+					<p:ajax event="rowEdit" listener="#{projectView.onRowEdit}" />
 					<p:column headerText="Responsibility">
 						<h:outputText value="#{week.responsibility.name}" />
 					</p:column>

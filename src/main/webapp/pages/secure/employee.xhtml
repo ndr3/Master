@@ -11,10 +11,12 @@
 </h:head>
 
 <h:body>
+
+	<ui:include src="/pages/secure/userInfo.xhtml" />
 	<h:form id="form">
 		<p:tabMenu activeIndex="-1">
-			<p:menuitem value="Add Employee"
-				onclick="PF('employee').show();" icon="ui-icon-circle-plus">
+			<p:menuitem value="Add Employee" onclick="PF('employee').show();"
+				icon="ui-icon-circle-plus">
 			</p:menuitem>
 		</p:tabMenu>
 		<p:growl id="msgs" showDetail="true" />
@@ -84,7 +86,8 @@
 				</p:selectOneMenu>
 				<p:message for="job" autoUpdate="true" />
 				<f:facet name="footer">
-					<p:commandButton id="saveButton" style="margin-left:40%; margin-top:2%;"
+					<p:commandButton id="saveButton"
+						style="margin-left:40%; margin-top:2%;"
 						value="#{msg['employee.create.save']}" update="form"
 						actionListener="#{employeeView.save}" />
 				</f:facet>

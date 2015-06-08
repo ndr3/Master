@@ -11,10 +11,11 @@
 </h:head>
 
 <h:body>
+	<ui:include src="/pages/secure/userInfo.xhtml" />
 	<h:form id="form">
 		<p:tabMenu activeIndex="-1">
-			<p:menuitem value="Add Project"
-				onclick="PF('project').show();" icon="ui-icon-circle-plus">
+			<p:menuitem value="Add Project" onclick="PF('project').show();"
+				icon="ui-icon-circle-plus">
 			</p:menuitem>
 			<p:menuitem value="Assign Employees"
 				actionListener="#{dashboardView.allocateEmployeesToProject}"
