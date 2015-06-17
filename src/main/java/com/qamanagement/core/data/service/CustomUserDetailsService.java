@@ -61,7 +61,7 @@ public class CustomUserDetailsService implements UserDetailsService, Serializabl
         if (role.intValue() == 1) {
             roles.add("ROLE_PROJECT_MANAGER");
         } else if (role.intValue() == 2) {
-            roles.add("ROLE_ADMIN");
+            roles.add("ROLE_EMPLOYEE");
         }
         return roles;
     }

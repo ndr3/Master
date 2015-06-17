@@ -8,10 +8,10 @@ public interface EmployeeService {
 	
 	List<Employee> getAllUserEmployees(String email);
 
-	void save(Employee employee);
-
 	Employee getEmployeeById(Long id);
 
 	void update(Employee employee);
+
+	void save(Employee employee, String email);
 
 }

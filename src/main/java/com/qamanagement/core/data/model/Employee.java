@@ -8,7 +8,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Fetch;
@@ -34,6 +36,11 @@ public class Employee implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SELECT)
 	private JobClassification jobClassification;
+
+	@OneToOne(fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SELECT)
+	@JoinColumn(name = "user_employee")
+	private User userAccount;
 
 	public Long getId() {
 		return id;
@@ -65,6 +72,14 @@ public class Employee implements Serializable {
 
 	public void setJobClassification(JobClassification jobClassification) {
 		this.jobClassification = jobClassification;
+	}
+
+	public User getUserAccount() {
+		return userAccount;
+	}
+
+	public void setUserAccount(User userAccount) {
+		this.userAccount = userAccount;
 	}
 
 }

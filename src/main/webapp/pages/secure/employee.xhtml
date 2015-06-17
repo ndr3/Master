@@ -64,7 +64,7 @@
 	<!-- create new employee -->
 	<p:dialog id="dialog" header="#{msg['employee.create.header']}"
 		widgetVar="employee" modal="true" showEffect="drop" hideEffect="drop"
-		height="150">
+		height="200">
 		<h:form>
 			<h:panelGrid columns="3" id="newEmployee">
 				<f:facet name="header">
@@ -76,6 +76,13 @@
 					requiredMessage="#{msg['employee.create.name.required']}">
 				</p:inputText>
 				<p:message for="name" autoUpdate="true" />
+				
+				<h:outputLabel for="employeeEmail" value="Email" />
+				<p:inputText id="employeeEmail" value="#{employeeView.employeeEmail}"
+					required="true" label="employeeEmail"
+					requiredMessage="Email is required">
+				</p:inputText>
+				<p:message for="employeeEmail" autoUpdate="true" />
 
 				<p:outputLabel for="job" value="Job Classification" />
 				<p:selectOneMenu id="job" value="#{employeeView.selectedJob}"

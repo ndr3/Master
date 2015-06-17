@@ -6,12 +6,15 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.Transformers;
 import org.springframework.stereotype.Repository;
 
 import com.qamanagement.core.data.model.Employee;
 import com.qamanagement.core.data.model.WeekResponsibility;
 import com.qamanagement.core.data.model.WeekResponsibilityEmployee;
+import com.qamanagement.core.data.to.AssignmentEmployeeTO;
 
 @Repository
 public class WeekResponsibilityEmployeeImpl extends AbstractDao implements
@@ -46,6 +49,27 @@ public class WeekResponsibilityEmployeeImpl extends AbstractDao implements
 			}
 		}
 		return employees;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<AssignmentEmployeeTO> getEmployeeResponsibility(String username) {
+		Criteria criteria = getSession().createCriteria(
+				WeekResponsibilityEmployee.class, "wr");
+		criteria.createAlias("wr.weekResponsibility", "weekResponsibility");
+		criteria.createAlias("weekResponsibility.workWeek", "workWeek");
+		criteria.createAlias("weekResponsibility.responsibility", "responsibility");
+		criteria.createAlias("workWeek.project", "project");
+		criteria.createAlias("wr.employee", "employee");
+		criteria.createAlias("employee.userAccount", "userAccount");
+		criteria.add(Restrictions.eq("userAccount.email", username));
+		criteria.setProjection( Projections.projectionList()
+		        .add( Projections.property("project.name"), "projectName" )
+		        .add( Projections.property("workWeek.number"), "weekNumber" )
+		        .add( Projections.property("responsibility.name"), "responsibility" )
+		    );
+		List<AssignmentEmployeeTO>  weekResponsibility = criteria.setResultTransformer(Transformers.aliasToBean(AssignmentEmployeeTO.class)).list();
+		return weekResponsibility;
 	}
 
 }

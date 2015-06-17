@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<script name="jquery/jquery.js" library="primefaces"></script>
+	<title>Assignments</title>
+</h:head>
+
+<h:body>
+	<ui:include src="/pages/secure/userEmployeeInfo.xhtml" />
+	<h:form id="form">
+		<p:dataTable id="projectsTable" var="assignment"
+			value="#{assignmentView.assignmentEmployeeTOs}" rows="10"
+			paginator="true"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15">>
+			<f:facet name="header">
+            My assignments
+        </f:facet>
+			<p:column headerText="Week number">
+				<h:outputText value="Week #{assignment.weekNumber}" />
+			</p:column>
+			<p:column headerText="Project">
+				<h:outputText value="#{assignment.projectName}" />
+			</p:column>
+			<p:column headerText="Responsibility">
+				<h:outputText value="#{assignment.responsibility}" />
+			</p:column>
+		</p:dataTable>
+	</h:form>
+
+</h:body>
+
+</html>

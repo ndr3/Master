@@ -10,7 +10,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 
 @ManagedBean(name = "loginMgmtBean")
 @RequestScoped
@@ -18,6 +20,7 @@ public class LoginBean {
 
 	private String userName = null;
 	private String password = null;
+	private User user;
 
 	@ManagedProperty(value = "#{authenticationManager}")
 	private AuthenticationManager authenticationManager = null;
@@ -36,7 +39,12 @@ public class LoginBean {
 							"Username or password incorrect."));
 			return "login.xhtml";
 		}
-		return "secure/dashboard.xhtml?faces-redirect=true";
+		setCurrentUser();
+		if(user.getAuthorities().contains(new GrantedAuthorityImpl("ROLE_PROJECT_MANAGER"))){
+			return "secure/dashboard.xhtml?faces-redirect=true";
+		} else {
+			return "employee/assignments.xhtml?faces-redirect=true";
+		}
 	}
 
 	public String home() {
@@ -50,6 +58,19 @@ public class LoginBean {
 	public String logout() {
 		SecurityContextHolder.clearContext();
 		return "/pages/login.xhtml?faces-redirect=true";
+	}
+
+	private void setCurrentUser() {
+		user = (User) SecurityContextHolder.getContext().getAuthentication()
+				.getPrincipal();
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public AuthenticationManager getAuthenticationManager() {

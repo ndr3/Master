@@ -15,6 +15,7 @@
 
         <!-- Page level Spring Security : Intercept access to resources in /pages/secure/** -->
         <sec:intercept-url pattern="/pages/secure/**" access="hasRole('ROLE_PROJECT_MANAGER')" />
+        <sec:intercept-url pattern="/pages/employee/**" access="hasRole('ROLE_EMPLOYEE')" />
 
         <!-- Page level Spring Security : Enable Primefaces -->
         <sec:intercept-url pattern="/javax.faces.resource/**" access="permitAll"/>

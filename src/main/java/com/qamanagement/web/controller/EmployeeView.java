@@ -35,6 +35,8 @@ public class EmployeeView implements Serializable {
 
 	private String employeeName;
 
+	private String employeeEmail;
+
 	private List<Employee> employees = new ArrayList<Employee>();
 
 	private List<JobClassification> jobClassifications = new ArrayList<>();
@@ -69,9 +71,10 @@ public class EmployeeView implements Serializable {
 		FacesMessage msg = null;
 		Employee employeeNew = new Employee();
 		employeeNew.setName(employeeName);
-		employeeNew.setJobClassification(jobClassificationService.getJobClassificationByName(selectedJob));
+		employeeNew.setJobClassification(jobClassificationService
+				.getJobClassificationByName(selectedJob));
 		employeeNew.setUser(userService.getUser(getUser().getUsername()));
-		employeeService.save(employeeNew);
+		employeeService.save(employeeNew, employeeEmail);
 		msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 				"The employee was saved", "");
 		FacesContext.getCurrentInstance().addMessage("createMsg", msg);
@@ -87,7 +90,8 @@ public class EmployeeView implements Serializable {
 
 	public void onRowEdit(RowEditEvent event) {
 		Employee employee = (Employee) event.getObject();
-		employee.setJobClassification(jobClassificationService.getJobClassificationByName(selectedJob));
+		employee.setJobClassification(jobClassificationService
+				.getJobClassificationByName(selectedJob));
 		employeeService.update(employee);
 	}
 
@@ -167,6 +171,14 @@ public class EmployeeView implements Serializable {
 
 	public void setJobs(Map<String, String> jobs) {
 		this.jobs = jobs;
+	}
+
+	public String getEmployeeEmail() {
+		return employeeEmail;
+	}
+
+	public void setEmployeeEmail(String employeeEmail) {
+		this.employeeEmail = employeeEmail;
 	}
 
 }

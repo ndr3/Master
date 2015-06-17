@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.qamanagement.core.data.model.Employee;
 import com.qamanagement.core.data.model.WeekResponsibilityEmployee;
+import com.qamanagement.core.data.to.AssignmentEmployeeTO;
 
 public interface WeekResponsibilityEmployeeDao {
 
@@ -12,5 +13,7 @@ public interface WeekResponsibilityEmployeeDao {
 	void truncate();
 
 	List<Employee> getEmployeesForWeekResponsibility(long responsibilityId);
+
+	List<AssignmentEmployeeTO> getEmployeeResponsibility(String username);
 
 }

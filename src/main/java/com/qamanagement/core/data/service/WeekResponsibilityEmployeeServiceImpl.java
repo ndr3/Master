@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.qamanagement.core.data.dao.WeekResponsibilityEmployeeDao;
 import com.qamanagement.core.data.model.Employee;
+import com.qamanagement.core.data.to.AssignmentEmployeeTO;
 
 @Service("weekResponsibilityEmployeeService")
 @Transactional
@@ -22,6 +23,11 @@ public class WeekResponsibilityEmployeeServiceImpl implements WeekResponsibility
 	@Override
 	public List<Employee> getEmployeesForWeekResponsibility(long responsibilityId) {
 		return weekResponsibilityEmployeeDao.getEmployeesForWeekResponsibility(responsibilityId);
+	}
+	
+	@Override
+	public List<AssignmentEmployeeTO> getEmployeeResponsibility(String username){
+		return weekResponsibilityEmployeeDao.getEmployeeResponsibility(username);
 	}
 
 }
